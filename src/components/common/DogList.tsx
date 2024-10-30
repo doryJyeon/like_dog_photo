@@ -1,7 +1,7 @@
 import React from "react";
-import DogImg from "./DogImg";
 import styled from "styled-components";
-import { DogsData } from "../type/dog";
+import { DogsData } from "../../type/dog";
+import DogImg from "./DogImg";
 
 interface DogsDataProps {
   dogsData: DogsData[]

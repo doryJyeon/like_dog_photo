@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import DogList from "./DogList";
-import { DogsData } from "../type/dog";
-import { getLikeDog } from "../utils/likeDogUtils";
-import { Container } from "../styles/CommonStyles";
-import StatusIndicator from "./StatusIndicator";
+import { DogsData } from "../../type/dog";
+import DogList from "../common/DogList";
+import { getLikeDog } from "../../utils/likeDogUtils";
+import { Container } from "../../styles/CommonStyles";
+import StatusIndicator from "../common/StatusIndicator";
 
 const LikedDogs = () => {
   const [likeDogs, setLikeDogs] = useState<DogsData[]>([]);

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FaRegHeart } from 'react-icons/fa';
 import styled from 'styled-components';
-import { checkLikeDog, dogLikeToggle } from '../utils/likeDogUtils';
-import { DogsData } from '../type/dog';
+import { checkLikeDog, dogLikeToggle } from '../../utils/likeDogUtils';
+import { DogsData } from '../../type/dog';
 
 const DogImg: React.FC<DogsData> = React.memo(({ id, url, width }) => {
   const [isLike, setIsLike] = useState<boolean>(checkLikeDog(id));

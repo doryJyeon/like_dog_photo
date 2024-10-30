@@ -1,4 +1,4 @@
-import LikedDogs from "../components/LikedDogs";
+import LikedDogs from "../components/liked/LikedDogs";
 
 const Liked = () => {
   return (

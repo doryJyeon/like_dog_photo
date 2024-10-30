@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import dogApi from "../api/dogApi";
+import dogApi from "../../api/dogApi";
+import { DogsData } from "../../type/dog";
+import DogList from "../common/DogList";
+import { Container } from "../../styles/CommonStyles";
+import StatusIndicator from "../common/StatusIndicator";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { DogsData } from "../type/dog";
-import DogList from "./DogList";
-import { Container } from "../styles/CommonStyles";
-import StatusIndicator from "./StatusIndicator";
+import { FaBackspace } from "react-icons/fa";
 
-const RandomDogs = () => {
-  const [page, setPage] = useState(0);
+const BreedPhotos = () => {
+  const { type } = useParams<string>();
+
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingMent, setLoadingMent] = useState<string>("Loading.");
   const [errMsg, setErrMsg] = useState<string | null>();
@@ -22,15 +25,16 @@ const RandomDogs = () => {
 
     setLoading(true);
     setErrMsg(null);
+
     try {
-      const response = await dogApi.get(`/v1/images/search?page=${page}&limit=16`);
+      const response = await dogApi.get(`/v1/images/search?limit=30&breed_ids=${type}`);
 
       const getDogListItems: DogsData[] = response.data.map((item: any) => ({
         id: item.id,
         url: item.url,
         width: item.width
       }));
-      setDogsData([...dogsData, ...getDogListItems]);
+      setDogsData(getDogListItems);
     } catch {
       setErrMsg("Error!");
     } finally {
@@ -41,32 +45,39 @@ const RandomDogs = () => {
 
   useEffect(() => {
     fetchRandomDog();
-  }, [page]);
+  }, []);
 
   return (
     <Container>
-      {dogsData && <DogList dogsData={dogsData} />}
+      {dogsData && (
+        <>
+          <DogListTotal>검색된 사진 총 {dogsData.length}개</DogListTotal>
+          <DogList dogsData={dogsData} />
+        </>
+      )}
 
       {loading && <StatusIndicator message={loadingMent} />}
       {errMsg !== null && <StatusIndicator message={errMsg} />}
 
-      {loading || <MoreBtn onClick={() => setPage(page + 1)}>사진 더보기</MoreBtn>}
+      {<MoveBtn to="/breed">견종보기<FaBackspace /></MoveBtn>}
     </Container>
   );
 }
 
-const MoreBtn = styled.button`
+const MoveBtn = styled(Link)`
   width: 80%;
-  max-width: 500px;
+  max-width: 300px;
   height: 50px;
-  margin: 30px auto 50px;
+  line-height: 50px;
+  margin: 30px auto 30px;
   border-radius: 10px;
   border: none;
   background-color: #ffffff;
   box-shadow: 0 2px 4px #aaa;
   font-size: 2.4rem;
-  letter-spacing: 0.5px;
-  color: #777;
+  text-align: center;
+  letter-spacing: 2px;
+  color: #555;
   cursor: pointer;
   transition: all .18s linear;
 
@@ -74,6 +85,15 @@ const MoreBtn = styled.button`
     box-shadow: 0 2px 2px #888;
     color: #333;
   }
+
+  & > svg {
+    margin-left: 6px;
+    margin-bottom: -3px;
+  }
+`
+const DogListTotal = styled.p`
+  margin-bottom: 10px;
+  color: #333;
 `
 
-export default RandomDogs;
+export default BreedPhotos;

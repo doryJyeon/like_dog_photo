@@ -9,7 +9,8 @@ const TheHeader = () => {
     <Headers>
       <Link to="/"><LogoImg src="/images/logo.png" alt="logo" /></Link>
       <Menus>
-        <Link to="/" className={`${path === "/" && "active"}`}>Home</Link>
+        <Link to="/" className={`${path === "/" && "active"}`}>Random</Link>
+        <Link to="/breed" className={`${path === "/breed" && "active"}`}>Breed</Link>
         <Link to="/liked" className={`${path === "/liked" && "active"}`}>Liked</Link>
       </Menus>
     </Headers>
