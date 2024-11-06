@@ -4,6 +4,7 @@ import { Container } from "../../styles/CommonStyles";
 import { DogBreeds } from "../../type/dog";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { FaArrowRightFromBracket } from "react-icons/fa6";
 
 const BreedSelect = () => {
   // get data
@@ -58,6 +59,7 @@ const BreedSelect = () => {
         </ListContainer>
       ) : (
         <ListContainer>
+          <li className="inversion" onClick={() => setSelectGroup("")}><FaArrowRightFromBracket /></li>
           {selectBreed && selectBreed.map(item => (
             <li>
               <Link to={`/breed/${item.id}`}>{item.name}</Link>
@@ -75,19 +77,27 @@ const ListContainer = styled.ul`
   flex-wrap: wrap;
 
   > li {
-    padding: 8px 20px;
+    height: 40px;
+    padding: 0 20px;
+    line-height: 40px;
     border: 1px solid lightgray;
     border-radius: 4px;
     font-size: 1.6rem;
     color: #444;
     display: inline-block;
     cursor: pointer;
-    transition: all .15s linear;
+    transition: color .15s linear;
+    transition: border-color .15s linear;
 
     &:hover, &:active {
       color: crimson;
       border-color: lightcoral;
     }
+  }
+
+  > li.inversion {
+    transform: rotate(180deg);
+    line-height: 46px;
   }
 `
 
