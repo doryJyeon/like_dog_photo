@@ -23,7 +23,7 @@ const RandomDogs = () => {
     setLoading(true);
     setErrMsg(null);
     try {
-      const response = await dogApi.get(`/v1/images/search?page=${page}&limit=16`);
+      const response = await dogApi.get(`/v1/images/search?page=${page}&limit=20`);
 
       const getDogListItems: DogsData[] = response.data.map((item: any) => ({
         id: item.id,
